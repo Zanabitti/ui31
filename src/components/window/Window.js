@@ -14,6 +14,12 @@ class Window extends React.Component {
             e.preventDefault();
             e.stopPropagation();
             let prevXY;
+            if(this.refWindow.current.style.zIndex == 0) {
+                for (let i of document.getElementsByClassName('window-border')){
+                    i.style.zIndex = 0;
+                }
+                this.refWindow.current.style.zIndex = 1;
+            }
             const onMove = (e) => {
                 
 
@@ -47,7 +53,7 @@ class Window extends React.Component {
 
     render() {
         return (
-            <div className="window-border"  onDragStart={this.dragStart.bind(this)} onMouseDown={this.drag.bind(this)} onDragEnd={null} ref={this.refWindow}>
+            <div className="window-border"  onMouseDown={this.drag.bind(this)} ref={this.refWindow}>
                 <div className="window-inner">
                     <Header />
                 </div>

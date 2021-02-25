@@ -19,6 +19,7 @@ class App extends Component{
     return(
       <div className="App" style={appStyle}>
         <Window />
+        <Window />
       </div>
     );
   }
