@@ -1,0 +1,18 @@
+.window-border {
+    width: 800px;
+    height: 500px;
+    border: black solid 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    resize: both;
+    overflow: auto;
+}
+
+.window-inner {
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    background: white;
+    border: solid 1px black;
+    display: flex;
+}

@@ -1,0 +1,20 @@
+.window-header {
+    height: 30px;
+    width: 100%;
+    border-bottom: solid 1px black;
+    background-color: #000080;
+    display: flex;
+}
+.window-header-title {
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+.window-header-title-text {
+    margin: 0;
+    line-height: 100%;
+    font-size: 1rem;
+}

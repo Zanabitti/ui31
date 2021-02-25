@@ -1,0 +1,19 @@
+.window-header button {
+    box-sizing: border-box;
+    height: 100%;
+    padding: 0;
+    border: outset;
+}
+.window-header button img {
+    height: 100%;
+    padding: 20%;
+    box-sizing: border-box;
+}
+.window-header button.button-minimize {
+    margin-left: auto;
+}
+
+.window-header button:focus {
+    border: inset;
+    outline: none;
+}
