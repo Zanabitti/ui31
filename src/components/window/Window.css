@@ -7,6 +7,7 @@
     align-items: center;   
     resize: both;
     overflow: auto;
+    position: absolute;
 }
 
 .window-inner {
