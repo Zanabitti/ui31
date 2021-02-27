@@ -18,4 +18,5 @@
     background: white;
     border: solid 1px black;
     display: flex;
+    flex-flow: column;
 }

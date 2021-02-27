@@ -1,5 +1,6 @@
 import React from "react";
 import Header from './header/Header';
+import Toolbar from './toolbar/Toolbar';
 import './Window.css';
 
 class Window extends React.Component {
@@ -10,15 +11,17 @@ class Window extends React.Component {
     
 
     drag(e){
-        if(e.target.className === 'window-header') {
+        if(e.target.className === 'window-header' || e.target.className === 'window-header inactive') {
             e.preventDefault();
             e.stopPropagation();
             let prevXY;
             if(this.refWindow.current.style.zIndex == 0) {
                 for (let i of document.getElementsByClassName('window-border')){
                     i.style.zIndex = 0;
+                    i.getElementsByClassName('window-header')[0].classList.add('inactive');
                 }
                 this.refWindow.current.style.zIndex = 1;
+                this.refWindow.current.getElementsByClassName('window-header')[0].classList.remove('inactive');
             }
             const onMove = (e) => {
                 
@@ -53,9 +56,10 @@ class Window extends React.Component {
 
     render() {
         return (
-            <div className="window-border"  onMouseDown={this.drag.bind(this)} ref={this.refWindow}>
+            <div className="window-border inactive"  onMouseDown={this.drag.bind(this)} ref={this.refWindow}>
                 <div className="window-inner">
                     <Header />
+                    <Toolbar />
                 </div>
             </div>
         );

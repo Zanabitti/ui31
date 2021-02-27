@@ -1,0 +1,15 @@
+.window-toolbar-toolmod p {
+    margin: 0;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 1rem;
+}
+p.toolmod-title-first {
+    text-decoration: underline;
+    text-transform: capitalize;
+}
+
+.window-toolbar-toolmod {
+    margin: 5px;
+    display: flex;
+}

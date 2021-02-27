@@ -5,6 +5,12 @@
     background-color: #000080;
     display: flex;
 }
+.window-header.inactive {
+    background-color: white;
+}
+.window-header.inactive .window-header-title {
+    color: black;
+}
 .window-header-title {
     color: white;
     font-family: sans-serif;
@@ -12,9 +18,11 @@
     display: flex;
     align-items: center;
     margin-left: auto;
+    pointer-events: none;
 }
 .window-header-title-text {
     margin: 0;
     line-height: 100%;
     font-size: 1rem;
+    user-select: none;
 }
