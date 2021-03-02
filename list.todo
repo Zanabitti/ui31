@@ -1,0 +1,13 @@
+Todo-list for future extensions and features
+--------------
+## OS Software ##
+
+## Personal Software ##
+
+## Authenticity ##
+- Disable right-click
+-- Show popup info to explain, re-enable right-click
+- Window negative positioning, enable scroll
+
+## Misc ##
+- Consider splitting header-buttons to separate components based on identity

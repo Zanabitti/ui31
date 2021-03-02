@@ -29,12 +29,11 @@ class Window extends React.Component {
                 if(!prevXY) {
                     prevXY = [e.clientX, e.clientY];
                 }
-
                 const [x, y] = prevXY;
                 const [diffX, diffY] = [e.clientX - x, e.clientY - y];
                 const currX = parseInt(this.refWindow.current.style.left) || 0;
                 const currY = parseInt(this.refWindow.current.style.top) || 0;
-    
+
                 this.refWindow.current.style.left = (currX + diffX) + 'px';
                 this.refWindow.current.style.top = (currY + diffY) + 'px';
 
@@ -49,17 +48,15 @@ class Window extends React.Component {
         }
     }
 
-    dragStart(e){
-        this.msStartX = e.clientX;
-        this.msStartY = e.clientY;
-    }
-
     render() {
         return (
             <div className="window-border inactive"  onMouseDown={this.drag.bind(this)} ref={this.refWindow}>
                 <div className="window-inner">
-                    <Header />
-                    <Toolbar />
+                    <Header title={this.props.title}/>
+                    { this.props.hasToolbar && <Toolbar />}
+                    <div className="window-content">
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
         );

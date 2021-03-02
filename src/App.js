@@ -10,16 +10,24 @@ class App extends Component{
         VIEWPORTWIDTH : window.innerWidth
     }
   }
-
+  componentDidMount(){
+    window.onresize = this.windowResize.bind(this);
+  }
+  windowResize(){
+    this.setState({
+      VIEWPORTHEIGHT : window.innerHeight,
+      VIEWPORTWIDTH : window.innerWidth
+    });
+  }
   render(){
     const appStyle = {
-      height: this.state.VIEWPORTHEIGHT + 'px',
-      width: '100%'
+      height: this.state.VIEWPORTHEIGHT +1+ 'px',
+      width: this.state.VIEWPORTWIDTH +1+ 'px'
     };
     return(
       <div className="App" style={appStyle}>
-        <Window />
-        <Window />
+        <Window hasToolbar="true" title="Program Manager"><Window title="Main"/></Window>
+        
       </div>
     );
   }

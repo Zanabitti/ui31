@@ -1,8 +1,8 @@
 .window-toolbar-toolmod p {
     margin: 0;
     font-weight: bold;
-    font-family: sans-serif;
-    font-size: 1rem;
+    font-family: 'Hxvetica', sans-serif;
+    font-size: 19px;
 }
 p.toolmod-title-first {
     text-decoration: underline;
@@ -12,4 +12,5 @@ p.toolmod-title-first {
 .window-toolbar-toolmod {
     margin: 5px;
     display: flex;
+    align-items: center;
 }
