@@ -3,7 +3,7 @@ body {
 }
 .App {
     margin: 1rem;
-    font-family: 'Hxvetica', sans-serif;
+    font-family: 'Pxlvetica', sans-serif;
     position: absolute;
     left: 0;
     top: 0;
@@ -14,6 +14,6 @@ body {
   }
 
   @font-face {
-      font-family: 'Hxvetica'; 
-      src: url(/Hxvetica.ttf); 
+      font-family: 'Pxlvetica'; 
+      src: url(/Pxlvetica.ttf); 
   }
