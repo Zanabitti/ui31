@@ -2,22 +2,18 @@ import React from 'react';
 import './Header.css';
 import HButton from './hbutton/HButton';
 
-class Header extends React.Component {
-    constructor(props){
-        super(props);
-    }
-    render(){
+const Header = (props) => {
+
         return (
             <div className="window-header">
-                <HButton btnType="button-dash"/>
+                <HButton btnType="button-dash" parentRef={props.parentRef} />
                 <div className="window-header-title">
-                    <p className="window-header-title-text">{this.props.title}</p>
+                    <p className="window-header-title-text">{props.title}</p>
                 </div>
-                <HButton btnType="button-minimize"/>
-                <HButton btnType="button-maximize"/>
+                <HButton btnType="button-minimize" hndlWindow={props.hndlWindow} />
+                <HButton btnType="button-maximize" parentRef={props.parentRef} />
             </div>
         );
-    }
 }
 
 export default Header;

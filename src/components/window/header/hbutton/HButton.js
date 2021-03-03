@@ -6,28 +6,18 @@ import imgChevBoth from './chev-both.png';
 import imgDash from './dash.png';
 
 
-class HButton extends React.Component {
-    constructor(props) {
-        super(props);
-        
-    }
-    clickHandler(e){
-        const minimize = (e) => {
-            console.log('minimized');
-        }
-    }
+const HButton = (props) => {
 
-    render(){
-        const imgSrc = this.props.btnType == 'button-minimize' ? imgChevDown :
-                    this.props.btnType == 'button-maximize' ? imgChevUp :
-                    this.props.btnType == 'button-dash' ? imgDash : null;
+    const imgSrc = props.btnType == 'button-minimize' ? imgChevDown :
+                props.btnType == 'button-maximize' ? imgChevUp :
+                props.btnType == 'button-dash' ? imgDash : null;
             
         return (
-            <button className={this.props.btnType} onClick={this.clickHandler}>
-                <img src={imgSrc} alt={this.props.btnType} />
+            <button className={props.btnType} onClick={props.hndlWindow}>
+                <img src={imgSrc} alt={props.btnType} />
             </button>
         );
-    }
+    
 }
 
 export default HButton;

@@ -7,6 +7,10 @@ class Window extends React.Component {
     constructor(props){
         super(props);
         this.refWindow = React.createRef();
+        this.drag = this.drag.bind(this);
+        this.state = {
+            isMinimized : false
+        };
     }
     
 
@@ -48,11 +52,17 @@ class Window extends React.Component {
         }
     }
 
+    minimize(){
+        this.setState({
+            isMinimized : true
+        }, () => (/*this.refWindow.current.style.display = 'none')*/ console.log('minim')));
+    }
+
     render() {
         return (
-            <div className="window-border inactive"  onMouseDown={this.drag.bind(this)} ref={this.refWindow}>
+            this.state.isMinimized ? null : <div className="window-border inactive"  onMouseDown={this.drag.bind(this)} ref={this.refWindow}>
                 <div className="window-inner">
-                    <Header title={this.props.title}/>
+                    <Header title={this.props.title} hndlWindow={this.minimize.bind(this)}/>
                     { this.props.hasToolbar && <Toolbar />}
                     <div className="window-content">
                         {this.props.children}

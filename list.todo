@@ -8,6 +8,7 @@ Todo-list for future extensions and features
 - Disable right-click
 -- Show popup info to explain, re-enable right-click
 - Window negative positioning, enable scroll
+- Window resizing from any edge, replacing CSS resize
 
 ## Misc ##
 - Consider splitting header-buttons to separate components based on identity
