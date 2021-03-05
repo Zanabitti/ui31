@@ -1,31 +1,27 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import Header from './header/Header';
 import Toolbar from './toolbar/Toolbar';
 import './Window.css';
 
-class Window extends React.Component {
-    constructor(props){
-        super(props);
-        this.refWindow = React.createRef();
-        this.drag = this.drag.bind(this);
-        this.state = {
-            isMinimized : false
-        };
-    }
+const Window = (props) => {
+
+    const refWindow = useRef();
+    const [isMinimized, setIsMinimized] = useState(false);
+
     
 
-    drag(e){
+    const drag = (e) => {
         if(e.target.className === 'window-header' || e.target.className === 'window-header inactive') {
             e.preventDefault();
             e.stopPropagation();
             let prevXY;
-            if(this.refWindow.current.style.zIndex == 0) {
+            if(refWindow.current.style.zIndex == 0) {
                 for (let i of document.getElementsByClassName('window-border')){
                     i.style.zIndex = 0;
                     i.getElementsByClassName('window-header')[0].classList.add('inactive');
                 }
-                this.refWindow.current.style.zIndex = 1;
-                this.refWindow.current.getElementsByClassName('window-header')[0].classList.remove('inactive');
+                refWindow.current.style.zIndex = 1;
+                refWindow.current.getElementsByClassName('window-header')[0].classList.remove('inactive');
             }
             const onMove = (e) => {
                 
@@ -35,42 +31,39 @@ class Window extends React.Component {
                 }
                 const [x, y] = prevXY;
                 const [diffX, diffY] = [e.clientX - x, e.clientY - y];
-                const currX = parseInt(this.refWindow.current.style.left) || 0;
-                const currY = parseInt(this.refWindow.current.style.top) || 0;
+                const currX = parseInt(refWindow.current.style.left) || 0;
+                const currY = parseInt(refWindow.current.style.top) || 0;
 
-                this.refWindow.current.style.left = (currX + diffX) + 'px';
-                this.refWindow.current.style.top = (currY + diffY) + 'px';
+                refWindow.current.style.left = (currX + diffX) + 'px';
+                refWindow.current.style.top = (currY + diffY) + 'px';
 
                 prevXY = [e.clientX, e.clientY];
             }
             const onDone = (e) => {
-                this.refWindow.current.removeEventListener("mousemove", onMove);
-                this.refWindow.current.removeEventListener("mouseup", onDone);           
+                refWindow.current.removeEventListener("mousemove", onMove);
+                refWindow.current.removeEventListener("mouseup", onDone);           
             }
-            this.refWindow.current.addEventListener("mousemove", onMove);
-            this.refWindow.current.addEventListener("mouseup", onDone);
+            refWindow.current.addEventListener("mousemove", onMove);
+            refWindow.current.addEventListener("mouseup", onDone);
         }
     }
 
-    minimize(){
-        this.setState({
-            isMinimized : true
-        }, () => (/*this.refWindow.current.style.display = 'none')*/ console.log('minim')));
+    const minimize = () => {
+        setIsMinimized(true);
+        console.log('minima');
     }
 
-    render() {
         return (
-            this.state.isMinimized ? null : <div className="window-border inactive"  onMouseDown={this.drag.bind(this)} ref={this.refWindow}>
+            isMinimized ? null : <div className="window-border inactive"  onMouseDown={drag} ref={refWindow}>
                 <div className="window-inner">
-                    <Header title={this.props.title} hndlWindow={this.minimize.bind(this)}/>
-                    { this.props.hasToolbar && <Toolbar />}
+                    <Header title={props.title} hndlWindow={minimize}/>
+                    { props.hasToolbar && <Toolbar />}
                     <div className="window-content">
-                        {this.props.children}
+                        {props.children}
                     </div>
                 </div>
             </div>
         );
-    }
 }
 
 export default Window;
