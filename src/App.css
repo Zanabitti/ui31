@@ -11,6 +11,7 @@ body {
     margin: 0;
     overflow: hidden;
     transform-origin: top left;
+    display: flex;
   }
 
   @font-face {

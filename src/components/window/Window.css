@@ -27,4 +27,24 @@
     width: 100%;
     position: relative;
     overflow: auto;
+    display: flex;
+}
+p.window-minimized-title {
+    text-align: center;
+    margin: 6px 0px 0 0;
+}
+
+.window-minimized {
+    width: 64px !important;
+    height: initial !important;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    align-self: flex-end;
+    margin: 10px;
+}
+
+img.window-minimized-icon {
+    height: 32px;
+    width: 32px;
 }

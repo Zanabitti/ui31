@@ -1,7 +1,7 @@
 {
   "name": "ui31",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.16",
+  "description": "Windows 3.1 recreation for web-browsers",
   "main": "index.js",
   "scripts": {
     "start": "echo \"Error: no deployment server defined\" && exit 1",
@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js"
   },
-  "author": "",
+  "author": "Saana Härkönen",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.13.0",

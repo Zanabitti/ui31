@@ -13,6 +13,8 @@ class App extends Component{
   componentDidMount(){
     window.onresize = this.windowResize.bind(this);
   }
+
+  //Change "desktop" size to match the current browser window
   windowResize(){
     this.setState({
       VIEWPORTHEIGHT : window.innerHeight,
@@ -20,6 +22,7 @@ class App extends Component{
     });
   }
   render(){
+    //Set "desktop" to entire browser window size
     const appStyle = {
       height: this.state.VIEWPORTHEIGHT +1+ 'px',
       width: this.state.VIEWPORTWIDTH +1+ 'px'

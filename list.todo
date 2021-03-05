@@ -12,3 +12,4 @@ Todo-list for future extensions and features
 
 ## Misc ##
 - Consider splitting header-buttons to separate components based on identity
+- CSS resize causes size values to transfer to minimized icon, hackfixed with !important

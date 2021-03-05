@@ -8,6 +8,7 @@ import imgDash from './dash.png';
 
 const HButton = (props) => {
 
+    //Select image based on button type, received from header
     const imgSrc = props.btnType == 'button-minimize' ? imgChevDown :
                 props.btnType == 'button-maximize' ? imgChevUp :
                 props.btnType == 'button-dash' ? imgDash : null;
