@@ -6,7 +6,6 @@
     display: flex;
     justify-content: center;
     align-items: center;   
-    resize: both;
     position: absolute;
     background-color: #c0c0c0;
     z-index: 0;

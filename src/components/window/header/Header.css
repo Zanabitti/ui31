@@ -18,11 +18,13 @@
     display: flex;
     align-items: center;
     margin-left: auto;
-    pointer-events: none;
+    justify-content: center;
+    width: 100%;
 }
 .window-header-title-text {
     margin: 0;
     line-height: 100%;
     font-size: 19px;
     user-select: none;
+    pointer-events: none;
 }

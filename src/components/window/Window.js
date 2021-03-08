@@ -9,10 +9,12 @@ const Window = (props) => {
     //Reference for window->header->buttons
     const refWindow = useRef();
     const [isMinimized, setIsMinimized] = useState(false);
+    const [isMaximized, setIsMaximized] = useState(true);
     
     // Window dragging
     const drag = (e) => {
-        if(e.target.className === 'window-header' || e.target.className === 'window-header inactive') {
+        // if(e.target.className === 'window-header' || e.target.className === 'window-header inactive') {
+            console.log("ping");
             e.preventDefault();
             e.stopPropagation();
             let prevXY;
@@ -54,18 +56,18 @@ const Window = (props) => {
             //Add listener on mousedown to move or end
             refWindow.current.addEventListener("mousemove", onMove);
             refWindow.current.addEventListener("mouseup", onDone);
-        }
+        // }
     }
 
     //Minimize the window
     //  Renders a different minimized-element when true
-    const minimize = () => {
+    const minimize = (e) => {
         setIsMinimized(true);
     }
 
     //Return to previous size and location
     //  Render original window component
-    const upsize = () => {
+    const upsize = (e) => {
         setIsMinimized(false);
     }
 
@@ -78,9 +80,9 @@ const Window = (props) => {
                 </div>
                 : 
                 //Window component
-                <div className="window-border inactive"  onMouseDown={drag} ref={refWindow}>
+                <div className="window-border inactive"  ref={refWindow}>
                     <div className="window-inner">
-                        <Header title={props.title} hndlWindow={minimize}/>
+                        <Header title={props.title} hndlWindow={minimize} hndlDrag={drag} windowIsMaximized={isMaximized}/>
                         { props.hasToolbar && <Toolbar />}
                         <div className="window-content">
                             {props.children}
