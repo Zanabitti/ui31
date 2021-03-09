@@ -6,7 +6,7 @@ const Header = (props) => {
 
 
     return (
-        <div className="window-header">
+        <div className={props.isInactive ? "window-header inactive" : "window-header"}>
             <HButton btnType="button-dash" parentRef={props.parentRef} />
             <div className="window-header-title" onMouseDown={props.hndlDrag} >
                 <p className="window-header-title-text">{props.title}</p>

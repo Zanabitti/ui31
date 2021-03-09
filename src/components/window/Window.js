@@ -8,55 +8,61 @@ const Window = (props) => {
 
     //Reference for window->header->buttons
     const refWindow = useRef();
+    const refGhost = useRef();
     const [isMinimized, setIsMinimized] = useState(false);
     const [isMaximized, setIsMaximized] = useState(true);
+    const [isMoving, setIsMoving] = useState(false);
     
     // Window dragging
     const drag = (e) => {
-        // if(e.target.className === 'window-header' || e.target.className === 'window-header inactive') {
-            console.log("ping");
             e.preventDefault();
             e.stopPropagation();
             let prevXY;
 
-            // If window has no "focus", set it 
-            if(refWindow.current.style.zIndex == 0) {
-                for (let i of document.getElementsByClassName('window-border')){
-                    i.style.zIndex = 0;
-                    i.getElementsByClassName('window-header')[0].classList.add('inactive');
-                }
-                refWindow.current.style.zIndex = 1;
-                refWindow.current.getElementsByClassName('window-header')[0].classList.remove('inactive');
-            }
-
             // Movement
             const onMove = (e) => {
-                
+                refGhost.current.style.display = 'block';
 
                 if(!prevXY) {
                     prevXY = [e.clientX, e.clientY];
                 }
                 const [x, y] = prevXY;
                 const [diffX, diffY] = [e.clientX - x, e.clientY - y];
-                const currX = parseInt(refWindow.current.style.left) || 0;
-                const currY = parseInt(refWindow.current.style.top) || 0;
+                const currX = parseInt(refGhost.current.style.left) || 0;
+                const currY = parseInt(refGhost.current.style.top) || 0;
 
-                refWindow.current.style.left = (currX + diffX) + 'px';
-                refWindow.current.style.top = (currY + diffY) + 'px';
+                refGhost.current.style.left = (currX + diffX) + 'px';
+                refGhost.current.style.top = (currY + diffY) + 'px';
 
                 prevXY = [e.clientX, e.clientY];
             }
 
-            //On releasing mouse, remove listeners
+            //On releasing mouse, remove listeners, move window to ghost
             const onDone = (e) => {
-                refWindow.current.removeEventListener("mousemove", onMove);
-                refWindow.current.removeEventListener("mouseup", onDone);           
+                refGhost.current.style.display = 'none';
+                refWindow.current.style.top = refGhost.current.style.top;
+                refWindow.current.style.left = refGhost.current.style.left;
+                document.removeEventListener("mousemove", onMove);
+                document.removeEventListener("mouseup", onDone); 
             }
 
+            // If window has no "focus", set it        
+            const setFocus = () => {
+                    for (let i of document.getElementsByClassName('window-border')){
+                        i.style.zIndex = 0;
+                        i.getElementsByClassName('window-header')[0].classList.add('inactive');
+                    }
+                    refWindow.current.style.zIndex = 1;
+                    refWindow.current.getElementsByClassName('window-header')[0].classList.remove('inactive');
+            }
             //Add listener on mousedown to move or end
-            refWindow.current.addEventListener("mousemove", onMove);
-            refWindow.current.addEventListener("mouseup", onDone);
-        // }
+            if(refWindow.current.style.zIndex == 0) setFocus();
+
+            //copy window size to ghost
+            refGhost.current.style.height = refWindow.current.style.height;
+            refGhost.current.style.width = refWindow.current.style.width;
+            document.addEventListener("mousemove", onMove);
+            document.addEventListener("mouseup", onDone);
     }
 
     //Minimize the window
@@ -80,15 +86,17 @@ const Window = (props) => {
                 </div>
                 : 
                 //Window component
+                <><div className="window-ghost" ref={refGhost}></div>
                 <div className="window-border inactive"  ref={refWindow}>
                     <div className="window-inner">
-                        <Header title={props.title} hndlWindow={minimize} hndlDrag={drag} windowIsMaximized={isMaximized}/>
+                        <Header title={props.title} hndlWindow={minimize} hndlDrag={drag} windowIsMaximized={isMaximized} isInactive="true"/>
                         { props.hasToolbar && <Toolbar />}
                         <div className="window-content">
                             {props.children}
                         </div>
                     </div>
                 </div>
+                </>
         );
 }
 
