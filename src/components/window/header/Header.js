@@ -11,8 +11,11 @@ const Header = (props) => {
             <div className="window-header-title" onMouseDown={props.hndlDrag} >
                 <p className="window-header-title-text">{props.title}</p>
             </div>
-            <HButton btnType="button-minimize" hndlWindow={props.hndlWindow} />
-            <HButton btnType={props.windowIsMaximized ? "button-both" : "button-maximize"} parentRef={props.parentRef} />
+            <HButton btnType="button-minimize" hndlWindow={props.hndlWindow['min']} />
+            { props.windowIsMaximized ? 
+                <HButton btnType="button-both" hndlWindow={props.hndlWindow['res']} parentRef={props.parentRef} />
+               : <HButton btnType="button-maximize" hndlWindow={props.hndlWindow['max']} parentRef={props.parentRef} />
+            }
         </div>
     );
 }

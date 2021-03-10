@@ -14,11 +14,10 @@
 }
 .window-ghost {
     display: none;
-    width: 100%;
-    height: 100%;
     border: solid gray;
     position: relative;
     z-index: 2;
+    box-sizing: border-box;
 }
 
 .window-inner {
@@ -51,7 +50,9 @@ p.window-minimized-title {
     align-self: flex-end;
     margin: 10px;
 }
-
+.hidden {
+    display: none;
+}
 img.window-minimized-icon {
     height: 32px;
     width: 32px;

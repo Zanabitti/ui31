@@ -28,7 +28,7 @@ const Window = (props) => {
                 }
                 const [x, y] = prevXY;
                 const [diffX, diffY] = [e.clientX - x, e.clientY - y];
-                const currX = parseInt(refGhost.current.style.left) || 0;
+                const currX = parseInt(refGhost.current.style.left) || 0; 
                 const currY = parseInt(refGhost.current.style.top) || 0;
 
                 refGhost.current.style.left = (currX + diffX) + 'px';
@@ -59,10 +59,14 @@ const Window = (props) => {
             if(refWindow.current.style.zIndex == 0) setFocus();
 
             //copy window size to ghost
-            refGhost.current.style.height = refWindow.current.style.height;
-            refGhost.current.style.width = refWindow.current.style.width;
-            document.addEventListener("mousemove", onMove);
-            document.addEventListener("mouseup", onDone);
+            if(!isMaximized){
+                refGhost.current.style.height = refWindow.current.style.height;
+                refGhost.current.style.width = refWindow.current.style.width;
+                refGhost.current.style.top = refWindow.current.style.top;
+                refGhost.current.style.left = refWindow.current.style.left;
+                document.addEventListener("mousemove", onMove);
+                document.addEventListener("mouseup", onDone);
+        }
     }
 
     //Minimize the window
@@ -77,27 +81,53 @@ const Window = (props) => {
         setIsMinimized(false);
     }
 
-        return (
-            isMinimized ? 
-                //Minimized window
-                <div className="window-minimized" onClick={upsize}>
-                    <img className="window-minimized-icon" src={imgMainGroup} alt={'img-'+props.title} />
-                    <p className="window-minimized-title">{props.title}</p>
-                </div>
-                : 
-                //Window component
-                <><div className="window-ghost" ref={refGhost}></div>
-                <div className="window-border inactive"  ref={refWindow}>
-                    <div className="window-inner">
-                        <Header title={props.title} hndlWindow={minimize} hndlDrag={drag} windowIsMaximized={isMaximized} isInactive="true"/>
-                        { props.hasToolbar && <Toolbar />}
-                        <div className="window-content">
-                            {props.children}
-                        </div>
+    //Set 
+    const maximize = (e) => {
+        console.log('maxed');
+        refWindow.current.style.height = '100%';
+        refWindow.current.style.width = '100%';
+        refWindow.current.style.top = '0px';
+        refWindow.current.style.left = '0px';
+        setIsMaximized(true);
+    }
+
+    const restoreSize = (e) => {
+        console.log('resized');
+        const maxW = refWindow.current.getBoundingClientRect().width;
+        const maxH = refWindow.current.getBoundingClientRect().height;
+        //if no prev size
+            refWindow.current.style.width = Math.floor(maxW * 0.8) + 'px';
+            refWindow.current.style.height = Math.floor(maxH * 0.8) + 'px';
+        setIsMaximized(false);
+    }
+
+    const handlers = {
+        'min' : minimize,
+        'max' : maximize,
+        'res' : restoreSize
+    };
+    return (
+            
+            <>
+            {/* Minimized icon*/}
+            <div className={ isMinimized ? "window-minimized" : "window-minimized hidden"} onClick={upsize}>
+                <img className="window-minimized-icon" src={imgMainGroup} alt={'img-'+props.title} />
+                <p className="window-minimized-title">{props.title}</p>
+            </div>
+            {/* Window move/resize ghost*/}
+            <div className="window-ghost" ref={refGhost}></div>
+            {/* Window component*/}
+            <div className={isMinimized ? "window-border inactive hidden" : "window-border inactive"}  ref={refWindow}>
+                <div className="window-inner">
+                    <Header title={props.title} hndlWindow={handlers} hndlDrag={drag} windowIsMaximized={isMaximized} isInactive={props.isInactive}/>
+                    { props.hasToolbar && <Toolbar />}
+                    <div className="window-content">
+                        {props.children}
                     </div>
                 </div>
-                </>
-        );
+            </div>
+            </>
+    );
 }
 
 export default Window;
