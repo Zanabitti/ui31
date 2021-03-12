@@ -7,12 +7,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
-  devtool: 'source-map',
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
         template: "./public/index.html",
-        excludeChunks: [ 'server' ]
       }),
     new webpack.DefinePlugin({
       'process.env': {

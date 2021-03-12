@@ -71,6 +71,7 @@ const Window = (props) => {
 
     //Minimize the window
     //  Renders a different minimized-element when true
+    //  Hidden with CSS, .hidden
     const minimize = (e) => {
         setIsMinimized(true);
     }

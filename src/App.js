@@ -29,7 +29,9 @@ class App extends Component{
     };
     return(
       <div className="App" style={appStyle}>
-        <Window hasToolbar="true" title="Program Manager" isInactive={true}><Window title="Main" isInactive={false}/></Window>
+        <Window hasToolbar="true" title="Program Manager" isInactive={true}>
+          <Window title="Main" isInactive={false}/>
+        </Window>
         
       </div>
     );
