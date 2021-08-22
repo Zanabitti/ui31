@@ -9,6 +9,8 @@ Todo-list for future extensions and features
 -- Show popup info to explain, re-enable right-click
 - Window negative positioning, enable scroll
 - Window resizing from any edge, replacing CSS resize
+-- Window resizing also done with ghost borders
+- Window Focus onClick within inactive window, not just header
 
 ## Misc ##
 - Consider splitting header-buttons to separate components based on identity

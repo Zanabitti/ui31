@@ -13,7 +13,10 @@
     margin-left: auto;
 }
 
-.window-header button:focus {
+.window-header button:active {
     border: inset;
+    outline: none;
+}
+.window-header button:focus {
     outline: none;
 }

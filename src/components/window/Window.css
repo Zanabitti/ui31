@@ -10,7 +10,6 @@
     background-color: #c0c0c0;
     z-index: 0;
     overflow: auto;
-    resize: both;
 }
 .window-ghost {
     display: none;
@@ -29,6 +28,14 @@
     flex-flow: column;
     position: relative;
 }
+.maximized {
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    left: 0 !important;
+    top: 0 !important;
+}
+
 .window-content {
     height: 100%;
     width: 100%;

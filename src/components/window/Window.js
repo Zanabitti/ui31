@@ -9,6 +9,7 @@ const Window = (props) => {
     //Reference for window->header->buttons
     const refWindow = useRef();
     const refGhost = useRef();
+    const refInner = useRef();
     const [isMinimized, setIsMinimized] = useState(false);
     const [isMaximized, setIsMaximized] = useState(true);
     const [isMoving, setIsMoving] = useState(false);
@@ -46,15 +47,6 @@ const Window = (props) => {
                 document.removeEventListener("mouseup", onDone); 
             }
 
-            // If window has no "focus", set it        
-            const setFocus = () => {
-                    for (let i of document.getElementsByClassName('window-border')){
-                        i.style.zIndex = 0;
-                        i.getElementsByClassName('window-header')[0].classList.add('inactive');
-                    }
-                    refWindow.current.style.zIndex = 1;
-                    refWindow.current.getElementsByClassName('window-header')[0].classList.remove('inactive');
-            }
             //Add listener on mousedown to move or end
             if(refWindow.current.style.zIndex == 0) setFocus();
 
@@ -69,6 +61,16 @@ const Window = (props) => {
         }
     }
 
+        // If window has no "focus", set it        
+    const setFocus = () => {
+        for (let i of document.getElementsByClassName('window-border')){
+            i.style.zIndex = 0;
+            i.getElementsByClassName('window-header')[0].classList.add('inactive');
+        }
+        refWindow.current.style.zIndex = 1;
+        refWindow.current.getElementsByClassName('window-header')[0].classList.remove('inactive');
+    }
+
     //Minimize the window
     //  Renders a different minimized-element when true
     //  Hidden with CSS, .hidden
@@ -80,20 +82,18 @@ const Window = (props) => {
     //  Render original window component
     const upsize = (e) => {
         setIsMinimized(false);
+        setFocus();
     }
 
-    //Set 
+    //Set .maximized to inner window and window border
     const maximize = (e) => {
-        console.log('maxed');
-        refWindow.current.style.height = '100%';
-        refWindow.current.style.width = '100%';
-        refWindow.current.style.top = '0px';
-        refWindow.current.style.left = '0px';
+        setFocus();
         setIsMaximized(true);
     }
 
+    //Remove .maximized class and set window to 80% of current parent size
     const restoreSize = (e) => {
-        console.log('resized');
+        setFocus();   
         const maxW = refWindow.current.getBoundingClientRect().width;
         const maxH = refWindow.current.getBoundingClientRect().height;
         //if no prev size
@@ -105,7 +105,7 @@ const Window = (props) => {
     const handlers = {
         'min' : minimize,
         'max' : maximize,
-        'res' : restoreSize
+        'res' : restoreSize,
     };
     return (
             
@@ -118,8 +118,8 @@ const Window = (props) => {
             {/* Window move/resize ghost*/}
             <div className="window-ghost" ref={refGhost}></div>
             {/* Window component*/}
-            <div className={isMinimized ? "window-border inactive hidden" : "window-border inactive"}  ref={refWindow}>
-                <div className="window-inner">
+            <div className={"window-border inactive"+ [isMinimized?" hidden ": ""] + [isMaximized?" maximized ":""] }  ref={refWindow}>
+                <div className={"window-inner" + [ isMaximized ? " maximized" : "" ]} ref={refInner} >
                     <Header title={props.title} hndlWindow={handlers} hndlDrag={drag} windowIsMaximized={isMaximized} isInactive={props.isInactive}/>
                     { props.hasToolbar && <Toolbar />}
                     <div className="window-content">
